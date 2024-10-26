@@ -8,13 +8,12 @@ import ProductDetails from "./components/product/productDetails/ProductDetails";
 import Cart from "./pages/cart/Cart";
 
 
-import CheckoutDetailsf from "./pages/checkoutf/CheckoutDetailsf";
+
 import Checkout from "./pages/checkout/Checkout";
 
-import CheckoutFlutter from "./pages/checkoutf/CheckoutFlutter";
+
 import CheckoutSuccess from "./pages/checkout/CheckoutSuccess";
 
-import CheckoutSuccessf from "./pages/checkoutf/CheckoutSuccessf";
 
 import OrderHistory from "./pages/orderHistory/OrderHistory";
 import OrderDetails from "./pages/orderDetails/OrderDetails";
@@ -53,13 +52,13 @@ function App() {
           
           <Route path="/paystack-Details" element={<PayStackDetails />} />
           <Route path="/checkout-details" element={<CheckoutDetails />} />
-          <Route path="/checkout-detailsf" element={<CheckoutDetailsf />} />
+          
           <Route path="/checkout" element={<Checkout />} />
           
           <Route path="/Paystack" element={<Paystack />} />
-          <Route path="/CheckoutFlutter" element={<CheckoutFlutter />} />
+          
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
-          <Route path="/checkout-successf" element={<CheckoutSuccessf />} />
+          
           <Route path="/Payment-success" element={<PaymentSuccess />} />
           
           <Route path="/order-history" element={<OrderHistory />} />
