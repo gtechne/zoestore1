@@ -51,14 +51,7 @@ const Cart = () => {
 
   const url = window.location.href;
 
-  const checkout = () => {
-    if (isLoggedIn) {
-      navigate("/checkout-details");
-    } else {
-      dispatch(SAVE_URL(url));
-      navigate("/login");
-    }
-  };
+ 
  
   const Paystack = () => {
     if (isLoggedIn) {
@@ -161,12 +154,7 @@ const Cart = () => {
                     <h3>{`₦${cartTotalAmount.toFixed(2)}`}</h3>
                   </div>
                   <p>Tax an shipping calculated at checkout</p>
-                  <button
-                    className="--btn --btn-primary --btn-block"
-                    onClick={checkout}
-                  >
-                    Checkout with stripe
-                  </button>
+                  
                  
                   <button
                     className="--btn --btn-primary --btn-block"

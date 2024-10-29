@@ -9,10 +9,10 @@ import Cart from "./pages/cart/Cart";
 
 
 
-import Checkout from "./pages/checkout/Checkout";
 
 
-import CheckoutSuccess from "./pages/checkout/CheckoutSuccess";
+
+
 
 
 import OrderHistory from "./pages/orderHistory/OrderHistory";
@@ -22,7 +22,6 @@ import NotFound from "./pages/notFound/NotFound";
 import PayStackDetails from "./pages/paystack/PayStackDetails";
 import Paystack from "./pages/paystack/Paystack";
 import PaymentSuccess from "./pages/paystack/PaymentSuccess";
-import CheckoutDetails from "./pages/checkout/CheckoutDetails";
 
 function App() {
   return (
@@ -51,13 +50,11 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           
           <Route path="/paystack-Details" element={<PayStackDetails />} />
-          <Route path="/checkout-details" element={<CheckoutDetails />} />
-          
-          <Route path="/checkout" element={<Checkout />} />
+         
           
           <Route path="/Paystack" element={<Paystack />} />
           
-          <Route path="/checkout-success" element={<CheckoutSuccess />} />
+         
           
           <Route path="/Payment-success" element={<PaymentSuccess />} />
           
