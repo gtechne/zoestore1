@@ -37,11 +37,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set PORT=4243 && react-scripts start",
+    "startf": "set PORT=4243 && react-scripts start",
     "start:b": "nodemon server.js",
-    "start:f": "nodemon serverf.js",
+   
     "start:p": "nodemon servers.js",
-    "start:h": "node server",
+    "start": "node server",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
