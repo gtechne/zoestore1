@@ -28,7 +28,7 @@ const OrderDetails = () => {
               <b>Order ID</b> {order.id}
             </p>
             <p>
-              <b>Order Amount</b> ${order.orderAmount}
+              <b>Order Amount</b> ₦{order.orderAmount}
             </p>
             <p>
               <b>Order Status</b> {order.orderStatus}
@@ -63,9 +63,9 @@ const OrderDetails = () => {
                           style={{ width: "100px" }}
                         />
                       </td>
-                      <td>{price}</td>
+                      <td>₦{price}</td>
                       <td>{cartQuantity}</td>
-                      <td>{(price * cartQuantity).toFixed(2)}</td>
+                      <td>₦{(price * cartQuantity).toFixed(2)}</td>
                       <td className={styles.icons}>
                         <Link to={`/review-product/${id}`}>
                           <button className="--btn --btn-primary">

@@ -73,7 +73,7 @@ const PayStackForm = () => {
   }, [location.search]);
 
   const verifyPayment = async (reference) => {
-    console.log("Verifying payment with reference:", reference); // Log the reference
+    //console.log("Verifying payment with reference:", reference); // Log the reference
 
     setIsLoading(true);
     try {
@@ -87,7 +87,7 @@ const PayStackForm = () => {
       });
       navigate("/checkout-success");
       dispatch(CLEAR_CART()); // Clear the cart after saving order
-      console.log("Verification response:", response.data); // Log response data
+      //console.log("Verification response:", response.data); // Log response data
 
      /* if (response.data.status === true) {
         toast.success("Payment successful");
@@ -97,7 +97,7 @@ const PayStackForm = () => {
         toast.error("Payment failed");
       }*/
     } catch (error) {
-      console.error("Payment verification error:", error);
+      //console.error("Payment verification error:", error);
       toast.error("Payment verification failed");
     } finally {
       setIsLoading(false);

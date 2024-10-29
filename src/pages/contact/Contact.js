@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import Card from "../../components/card/Card";
 import styles from "./Contact.module.scss";
-import { FaPhoneAlt, FaEnvelope, FaTwitter } from "react-icons/fa";
+import { FaPhoneAlt, FaEnvelope, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
@@ -16,9 +16,9 @@ const Contact = () => {
     emailjs
       .sendForm(
         process.env.REACT_APP_EMAILJS_SERVICE_ID,
-        "template_kmdir2p",
+        "template_nrsob53",
         form.current,
-        "Fz9Ju5TJ4gQ1r8v_X"
+        "00cdiCiRMe4Sn7SQf"
       )
       .then(
         (result) => {
@@ -72,11 +72,11 @@ const Contact = () => {
               <div className={styles.icons}>
                 <span>
                   <FaPhoneAlt />
-                  <p>+234 8153539317</p>
+                  <p>+234 701 537 2893</p>
                 </span>
                 <span>
                   <FaEnvelope />
-                  <p>Zoestore@gmail.com</p>
+                  <p>Zoestore1010@gmail.com</p>
                 </span>
                 <span>
                   <GoLocation />
@@ -84,7 +84,17 @@ const Contact = () => {
                 </span>
                 <span>
                   <FaTwitter />
-                  <p>@Zoestore</p>
+                  <p>@Zoestore1010</p>
+                </span>
+                <span>
+                  <FaWhatsapp />
+                  <a
+                    href="https://wa.me/2347015372893"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <p>Chat with us on WhatsApp</p>
+                  </a>
                 </span>
               </div>
             </Card>

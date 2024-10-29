@@ -37,7 +37,14 @@ const OrderDetails = () => {
             </p>
             <p>
               <b>Shipping Address</b>
+
               <br />
+
+              customer name : {order.shippingAddress.name}
+              <br/>
+
+              phone: {order.shippingAddress.phone}
+              <br/>
               Address: {order.shippingAddress.line1},
               {order.shippingAddress.line2}, {order.shippingAddress.city}
               <br />

@@ -7,7 +7,7 @@ const axios = require("axios");
 const app = express();
 const path = require("path");
 const admin = require("firebase-admin");
-const serviceAccount = require("../serviceAccountKey.json");
+const serviceAccount = require("./serviceAccountKey.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -80,9 +80,9 @@ app.post("/create-payment-intent", async (req, res) => {
       reference: response.data.data.reference,  // Paystack reference
       
     });
-    console.log("Generated reference:", response.data.data.reference);
+    //console.log("Generated reference:", response.data.data.reference);
   } catch (error) {
-    console.error("Error initializing payment:", error.response?.data || error.message);
+    //console.error("Error initializing payment:", error.response?.data || error.message);
     res.status(500).send({
       message: "Payment initialization failed. Please try again.",
       error: error.response?.data || error.message,
@@ -105,7 +105,7 @@ app.post("/verify-payment/:reference", async (req, res) => {
         },
       }
     );
-    console.log("Paystack verification response:", response.data);
+    //console.log("Paystack verification response:", response.data);
 
     const paymentStatus = response.data.data.status;
 
@@ -132,16 +132,16 @@ app.post("/verify-payment/:reference", async (req, res) => {
        // Save order to Firebase Firestore
        // Save order in Firestore
       const orderRef = await db.collection("orders").add(order);
-      console.log("Order saved to Firebase with ID:", orderRef.id);
+      //console.log("Order saved to Firebase with ID:", orderRef.id);
 
       res.json({ status: "success", orderId: orderRef.id });
     } else {
       res.json({ status: "failed" });
     }
 
-    console.log(`Verifying payment with reference: ${reference}`);
+    //console.log(`Verifying payment with reference: ${reference}`);
   } catch (error) {
-    console.error("Payment verification error:", error.response?.data || error.message);
+    //console.error("Payment verification error:", error.response?.data || error.message);
     res.status(500).send({
       message: "Payment verification failed.",
       error: error.response?.data || error.message,
