@@ -38,8 +38,8 @@
   },
   "scripts": {
     "start:f": "set PORT=4243 && react-scripts start",
-    "start:b": "nodemon server.js",
-    "start": "node server",
+    "start:b": "set PORT=5001 && nodemon server.js",
+    "start": "concurrently \"npm run start:b\" \"npm run start:f\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -61,5 +61,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
   }
 }
