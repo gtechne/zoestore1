@@ -55,7 +55,7 @@ const PayStackForm = () => {
       console.log("Order successfully written with ID: ", docRef.id);
       dispatch(CLEAR_CART()); // Clear the cart after saving order
       toast.success("Order saved");
-      navigate("/checkout-success");
+      navigate("/Payment-success");
     } catch (error) {
       console.error("Error saving order:", error);
       toast.error("Error saving order: " + error.message);
@@ -85,7 +85,7 @@ const PayStackForm = () => {
           amount: cartTotalAmount,   // Ensure this is coming from your state
        
       });
-      navigate("/checkout-success");
+      navigate("/Payment-success");
       dispatch(CLEAR_CART()); // Clear the cart after saving order
       //console.log("Verification response:", response.data); // Log response data
 
