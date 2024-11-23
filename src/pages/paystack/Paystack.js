@@ -25,7 +25,7 @@ const Paystack = () => {
     <section>
       <div className={`container ${styles.checkout}`}>
       <Card cardClass={styles.card}>
-      <h3>Checkout</h3>
+      <h3>Checkout with Paystack</h3>
       <PayStackForm />
         </Card>
         
