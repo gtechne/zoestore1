@@ -52,12 +52,12 @@ const PayStackForm = () => {
     try {
       // Save the order to the "orders" collection in Firestore
       const docRef = await addDoc(collection(db, "orders"), orderConfig);
-      console.log("Order successfully written with ID: ", docRef.id);
+      //console.log("Order successfully written with ID: ", docRef.id);
       dispatch(CLEAR_CART()); // Clear the cart after saving order
       toast.success("Order saved");
       navigate("/Payment-success");
     } catch (error) {
-      console.error("Error saving order:", error);
+     // console.error("Error saving order:", error);
       toast.error("Error saving order: " + error.message);
     }
   };
@@ -73,7 +73,7 @@ const PayStackForm = () => {
   }, [location.search]);
 
   const verifyPayment = async (reference) => {
-    //console.log("Verifying payment with reference:", reference); // Log the reference
+    console.log("Verifying payment with reference:", reference); // Log the reference
 
     setIsLoading(true);
     try {
@@ -97,7 +97,7 @@ const PayStackForm = () => {
         toast.error("Payment failed");
       }*/
     } catch (error) {
-      //console.error("Payment verification error:", error);
+      console.error("Payment verification error:", error);
       toast.error("Payment verification failed");
     } finally {
       setIsLoading(false);

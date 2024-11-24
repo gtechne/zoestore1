@@ -11,11 +11,16 @@ const serviceAccount = JSON.parse(
   Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_KEY, 'base64').toString('utf-8')
 );
 
+
+//console.log("Service Account Key:", serviceAccount);
+
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
 const db = admin.firestore();
+module.exports = { admin, db };
 
 // CORS Configuration
 const allowedOrigins = [
@@ -77,13 +82,14 @@ app.post("/create-payment-intent", async (req, res) => {
         },
       }
     );
+    console.log("Paystack verification response:", response.data);
 
     res.send({
       authorizationUrl: response.data.data.authorization_url,
       reference: response.data.data.reference,  // Paystack reference
       
     });
-    //console.log("Generated reference:", response.data.data.reference);
+    console.log("Generated reference:", response.data.data.reference);
   } catch (error) {
     //console.error("Error initializing payment:", error.response?.data || error.message);
     res.status(500).send({
@@ -96,10 +102,10 @@ app.post("/create-payment-intent", async (req, res) => {
 
 // Verify Payment
 app.post("/verify-payment/:reference", async (req, res) => {
-  const { reference } = req.params; // Use req.params to get the reference
-
+  const { reference } = req.params;
 
   try {
+    // Verify payment with Paystack
     const response = await axios.get(
       `https://api.paystack.co/transaction/verify/${reference}`,
       {
@@ -108,49 +114,51 @@ app.post("/verify-payment/:reference", async (req, res) => {
         },
       }
     );
-    //console.log("Paystack verification response:", response.data);
 
-    const paymentStatus = response.data.data.status;
+    console.log("Paystack verification response:", response.data);
 
-    if (paymentStatus === "success") {
-      // Save the order to Firebase
+    if (response.data.data.status === "success") {
+      // Prepare order object
       const order = {
-        userID: req.body.userID || "Unknown User", // Set default if undefined
+        userID: req.body.userID || "Unknown User",
         userEmail: req.body.email || "No Email",
         orderDate: new Date().toDateString(),
         orderTime: new Date().toLocaleTimeString(),
-        orderAmount: req.body.amount || 0, // Ensure amount is provided
+        orderAmount: req.body.amount || 0,
         orderStatus: "Order Placed...",
-        cartItems: req.body.items || [], // Provide an empty array if undefined
-        shippingAddress: req.body.shipping || {}, // Provide an empty object if undefined
+        cartItems: req.body.items || [],
+        shippingAddress: req.body.shipping || {},
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
       };
-      
+
       if (!order.userID || !order.userEmail || !order.cartItems.length) {
-        console.error("Missing required fields for order:", order);
-        res.status(400).send({ message: "Order fields are missing or invalid." });
-        return;
+        return res.status(400).json({ message: "Invalid order details" });
       }
 
-       // Save order to Firebase Firestore
-       // Save order in Firestore
+      // Save order in Firestore
       const orderRef = await db.collection("orders").add(order);
-      //console.log("Order saved to Firebase with ID:", orderRef.id);
+      console.log("Order saved to Firebase:", orderRef.id);
 
-      res.json({ status: "success", orderId: orderRef.id });
-    } else {
-      res.json({ status: "failed" });
+      return res.json({ status: "success", orderId: orderRef.id });
     }
 
-    //console.log(`Verifying payment with reference: ${reference}`);
+    return res.status(400).json({ status: "failed", message: "Payment not successful" });
   } catch (error) {
-    //console.error("Payment verification error:", error.response?.data || error.message);
-    res.status(500).send({
-      message: "Payment verification failed.",
+    console.error("Error during payment verification:", {
+      message: error.message,
+      code: error.code,
+      response: error.response?.data,
+      stack: error.stack,
+    });
+
+    res.status(500).json({
+      message: "Payment verification failed",
       error: error.response?.data || error.message,
     });
   }
 });
+//console.log("Paystack Secret Key:", process.env.PAYSTACK_SECRET_KEY);
+
 
 // Calculate Order Amount
 const calculateOrderAmount = (items) => {
