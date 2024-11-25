@@ -24,14 +24,17 @@ module.exports = { admin, db };
 
 // CORS Configuration
 const allowedOrigins = [
-  process.env.FRONTEND_URL || "http://localhost:4243",
-  // Add other allowed origins if necessary
+  "https://zoestore1.vercel.app", // Add your frontend origin
+  "http://localhost:4243",        // For local development
 ];
+
 
 app.use(
   cors({
     origin: allowedOrigins,
-    credentials: true,
+    credentials: true, // If using cookies or authorization headers
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"],    // Allowed headers
   })
 );
 
