@@ -38,13 +38,7 @@ app.use(
 // Body Parser Middleware
 app.use(express.json());
 
-// Serve Static Files in Production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("build"));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "build", "index.html"));
-  });
-}
+
 
 // Root Route
 app.get("/", (req, res) => {
@@ -165,6 +159,13 @@ const calculateOrderAmount = (items) => {
   const total = items.reduce((acc, item) => acc + item.price * item.cartQuantity, 0);
   return total * 100; // Convert to Kobo
 };
+// Serve Static Files in Production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "build", "index.html"));
+  });
+}
 
 // Start Server
 const PORT = process.env.PORTW || 5001;
