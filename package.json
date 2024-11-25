@@ -6,7 +6,6 @@
     "@emailjs/browser": "^4.4.1",
     "@paystack/inline-js": "^2.20.3",
     "@reduxjs/toolkit": "^2.2.7",
-    
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -15,7 +14,6 @@
     "dotenv": "^16.4.5",
     "firebase": "^10.12.5",
     "firebase-admin": "^12.6.0",
-    
     "nodemon": "^3.1.4",
     "notiflix": "^3.2.7",
     "react": "^18.3.1",
@@ -31,17 +29,17 @@
     "react-toastify": "^10.0.5",
     "sass": "^1.77.8",
     "store": "file:",
-    
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start:f": "set PORT=4243 && react-scripts start",
     "start:b": "set PORT=5001 && nodemon server.js",
     "start:t": "concurrently \"npm run start:b\" \"npm run start:f\"",
-    "start": "node server.js",
+    "start": "node api/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "proxy": "/api"
   },
   "eslintConfig": {
     "extends": [
