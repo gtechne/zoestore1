@@ -30,7 +30,8 @@ const PayStackForm = () => {
   const shippingAddress = useSelector(selectShippingAddress);
 
   // Backend base URL from environment variables
-  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL.replace(/\/$/, ""); // Remove trailing slash
+ 
 
   // Save order to Order History
   const saveOrder = async () => {
@@ -110,12 +111,19 @@ const PayStackForm = () => {
 
     try {
       // Initialize Paystack payment
-      const response = await axios.post(`${BACKEND_URL}/create-payment-intent`, {
-        items: cartItems,
-        email: userEmail,
-        shipping: shippingAddress,
-      });
-
+      const response = await axios.post(
+        `${BACKEND_URL}/create-payment-intent`,
+        {
+          items: cartItems,
+          email: userEmail,
+          shipping: shippingAddress,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const { authorizationUrl, reference } = response.data;
       const paystackHandler = window.PaystackPop.setup({
         key: process.env.REACT_APP_PAYSTACK_PUBLIC_KEY, // Paystack public key
